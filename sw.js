@@ -6,6 +6,7 @@ const urlsToCache = [
   "/login.js",
   "/manifest.json",
   "/minimal pastel water.png",
+  "/enviarDatos.js"
   
 ];
 
