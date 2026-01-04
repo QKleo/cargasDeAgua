@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#7a5cff">
+  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cargas Agua</title>
+  <link rel="stylesheet" href="stylesheet.css">
+  <link rel="icon" type="image/png" href="minimal pastel water.png">
+</head>
+<body>
+  <div class="login-container" id="login">
+    <h2>Login Chofer</h2>
+    <input id="user" placeholder="Usuario">
+    <input id="pass" type="password" placeholder="Contraseña">
+    <button id="btnIngresar" onclick="login()">Ingresar</button>
+    <div class="loader" id="loader"></div>
+    <div class="loading-text" id="loadingText"></div>
+
+
+
+  </div>
+
+  <div class="form-container" id="form" style="display:none;">
+  <h2 id="welcomeMsg"></h2>
+
+  <label for="dominio">Dominio:</label>
+  <select id="dominio">
+    <option>ABC123</option>
+    <option>XYZ789</option>
+  </select>
+
+  <label for="cargadero">Cargadero:</label>
+  <select id="cargadero">
+    <option>Norte</option>
+    <option>Sur</option>
+  </select>
+
+  <label for="m3">Metros cúbicos:</label>
+  <select id="m3">
+    <option>30</option>
+    <option>20</option>
+    <option>10</option>
+  </select>
+
+ <button class="confirmar" onclick="enviar()">
+  <span class="icon">🚚</span> Confirmar
+</button>
+<div id="bienvenida" >
+    
+    <button onclick="logout()">Cerrar sesión</button>
+</div>
+
+</div>
+    <script  src="login.js"> </script>
+    <SCript>
+        if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/sw.js")
+      .then(reg => console.log("Service Worker registrado:", reg))
+      .catch(err => console.error("Error registrando SW:", err));
+  });
+}
+    </SCript>
+</body>
+</html>

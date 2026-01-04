@@ -1,0 +1,205 @@
+html, body {
+      height: 100%;
+      width: 100%;
+
+    }
+ 
+ 
+ body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #f5f3ff, #e0d7ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      width: 90vw;
+      height: 80vh;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #4a3f8f;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 1em;
+      box-sizing: border-box;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #7a5cff;
+      box-shadow: 0 0 6px rgba(122,92,255,0.4);
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 15px;
+      background: #7a5cff;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #5a3fd1;
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 480px) {
+      .login-container {
+        padding: 20px;
+      }
+      input, button {
+        font-size: 1em;
+        padding: 12px;
+      }
+    }
+    button.confirmar {
+  width: 100%;
+  padding: 14px;
+  margin-top: 20px;
+  background: linear-gradient(135deg, #7a5cff, #5a3fd1);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1em;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+button.confirmar:hover {
+  transform: scale(1.03);
+  background: linear-gradient(135deg, #5a3fd1, #7a5cff);
+}
+
+button.confirmar .icon {
+  display: inline-block;
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+.form-container {
+  background: white;
+  padding: 25px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 90vw;
+  height: 80vh;
+      
+  max-width: 420px;
+  margin: 20px auto;
+}
+
+.form-container h2 {
+  color: #4a3f8f;
+  margin-bottom: 20px;
+  font-size: 1.4em;
+}
+
+label {
+  display: block;
+  margin: 12px 0 6px;
+  font-weight: 600;
+  color: #555;
+}
+
+select {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  font-size: 1em;
+  background: #f9f9ff;
+  transition: border 0.3s ease;
+}
+
+select:focus {
+  outline: none;
+  border-color: #7a5cff;
+  box-shadow: 0 0 6px rgba(122,92,255,0.4);
+}
+
+button.confirmar {
+  width: 100%;
+  padding: 14px;
+  margin-top: 20px;
+  background: linear-gradient(135deg, #7a5cff, #5a3fd1);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.3s ease;
+}
+
+button.confirmar:hover {
+  transform: scale(1.03);
+  background: linear-gradient(135deg, #5a3fd1, #7a5cff);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .form-container {
+    padding: 20px;
+  }
+  select, button.confirmar {
+    font-size: 1em;
+    padding: 12px;
+  }
+}
+/* Styles for loader */
+.loader {
+  border: 6px solid #f3f3f3;
+  border-top: 6px solid #7a5cff;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+  margin: 20px auto 10px;
+  display: none;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-text {
+  font-size: 1em;
+  color: #555;
+  text-align: center;
+  display: none;
+  animation: blink 1.5s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}

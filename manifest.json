@@ -1,0 +1,16 @@
+{
+  "name": "Cargas Agua",
+  "short_name": "Agua",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#7a5cff",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "minimal pastel water.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
