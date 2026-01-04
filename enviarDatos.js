@@ -12,10 +12,11 @@ function enviar() {
 
   fetch(endPoint, {
     method: "POST",
+    mode: "no-cors",
     body: JSON.stringify(data),
     headers: { "Content-Type": "application/json" }
   })
   .then(r => r.text())
-  .then(res => alert("Registro enviado: " + res))
+  .then(res => alert("Registro enviado:" ))
   .catch(err => alert("Error: " + err));
 }
