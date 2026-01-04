@@ -43,7 +43,7 @@
     <option>10</option>
   </select>
 
- <button class="confirmar" onclick="enviar()">
+ <button class="confirmar" id="btnEnviar" onclick="enviar()">
   <span class="icon">🚚</span> Confirmar
 </button>
 <div id="bienvenida" >
@@ -58,7 +58,7 @@
 
       const endPoint="https://script.google.com/macros/s/AKfycbxmrLYRZOvHp5fEmagYlMAeuP0nXIGq3KW86wXWydg_--pA7VLBMSPgnknPGxfoetWCmQ/exec";
       const loaderEnvio = document.getElementById("loaderEnvio");
-      
+      const btnEnviar = document.getElementById("btnEnviar");
       async function enviar() {
       const data = {
         dominio: document.getElementById('dominio').value,
@@ -70,6 +70,7 @@
 
       try {
         loaderEnvio.style.display = "block";
+        btnEnviar.disabled = true;
         const res = await fetch(endPoint, {
           method: "POST",
           mode: "no-cors",
@@ -79,7 +80,8 @@
         //const data = await res.json();
        // console.log("Respuesta del servidor:", data);
         loaderEnvio.style.display = "none";
-        console.log("Carga enviada:", data); //ver en consola
+        btnEnviar.disabled = false;
+        //console.log("Carga enviada:", data); //ver en consola
         alert("carga enviada.");
       } catch (err) {
         console.error("Error enviando.......:", err);
