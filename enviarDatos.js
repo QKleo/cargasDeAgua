@@ -1,6 +1,5 @@
 
-const endPoint="https://script.google.com/macros/s/AKfycbxXLKfojEtApZREYlj5XfQRzuKqKhui1QZl-l8F5pdb9rfeZ3EuA87OARmQ4ETJddNZUg/exec"
-
+const endPoint="https://script.google.com/macros/s/AKfycbxmrLYRZOvHp5fEmagYlMAeuP0nXIGq3KW86wXWydg_--pA7VLBMSPgnknPGxfoetWCmQ/exec";
 async function enviar() {
   const data = {
     dominio: document.getElementById('dominio').value,
@@ -19,6 +18,7 @@ async function enviar() {
         });
         //const data = await res.json();
        // console.log("Respuesta del servidor:", data);
+        console.log("Carga enviada:", data);
         alert("carga enviada.");
       } catch (err) {
         console.error("Error enviando....:", err);
