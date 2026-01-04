@@ -50,13 +50,15 @@
     
     <button onclick="logout()">Cerrar sesión</button>
 </div>
-
+<div class="loader" id="loaderEnvio"></div>
 </div>
     <script  src="login.js"> </script>
     
     <SCript>
 
       const endPoint="https://script.google.com/macros/s/AKfycbxmrLYRZOvHp5fEmagYlMAeuP0nXIGq3KW86wXWydg_--pA7VLBMSPgnknPGxfoetWCmQ/exec";
+      const loaderEnvio = document.getElementById("loaderEnvio");
+      
       async function enviar() {
       const data = {
         dominio: document.getElementById('dominio').value,
@@ -67,7 +69,7 @@
       };
 
       try {
-        spinner(true);
+        loaderEnvio.style.display = "block";
         const res = await fetch(endPoint, {
           method: "POST",
           mode: "no-cors",
@@ -76,7 +78,7 @@
         });
         //const data = await res.json();
        // console.log("Respuesta del servidor:", data);
-        spinner(false);
+        loaderEnvio.style.display = "none";
         console.log("Carga enviada:", data); //ver en consola
         alert("carga enviada.");
       } catch (err) {
