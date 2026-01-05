@@ -20,10 +20,43 @@
 
 
   </div>
+  <div id="ventanaJuegos" style="width:100%; height:90vh; border:none;display: none;">
+     <div style="display: flex;justify-content: right;">
+     <button onclick="regresar()" style="width: min-content;margin-right: 10px;">regresar</button>
+   </div> 
+    <iframe id="gameFrame" style="width:100%; height:80vh; border:none;display: none;margin-right: 10px;"></iframe>
+  
+  </div>
 
   <div class="form-container" id="form" style="display:none;">
-  <h2 id="welcomeMsg"></h2>
+ <!-- Barra superior -->
+  <div class="navbar">
+    <h3>Menu</h3>
+    <button class="hamburger" onclick="toggleMenu()">☰</button>
+  </div>
 
+
+
+
+  <h2 id="welcomeMsg"></h2>
+<!-- Menú lateral -->
+  <div id="sidebar" class="sidebar">
+    <h2>🎮 Juegos</h2>
+    <button onclick="openGame('memotest.html')">🎴 Memotest</button>
+    <button onclick="openGame('simon.html')">🎶 Simón Dice</button>
+  </div>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <label for="dominio">Dominio:</label>
   <select id="dominio">
     <option>ABC123</option>
@@ -111,6 +144,26 @@
         .catch(err => console.error("Error registrando SW:", err));
         });
       }
+
+       function toggleMenu() {
+      document.getElementById("sidebar").classList.toggle("active");
+    }
+    function openGame(url) {
+      document.getElementById("gameFrame").src = url;
+      document.getElementById("form").style.display = "none";
+      document.getElementById("gameFrame").style.display = "block";
+      document.getElementById("ventanaJuegos").style.display = "block";
+      toggleMenu(); // cerrar menú al elegir juego
+    }
+    function regresar() {
+      document.getElementById("form").style.display = "block";
+      document.getElementById("ventanaJuegos").style.display = "none";
+    }
+
+
+
+
+
     </SCript>
 </body>
 </html>

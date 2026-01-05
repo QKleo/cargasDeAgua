@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Jueguito Memotest</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: linear-gradient(to bottom, #e6dfff, #f5f0ff);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #6a4fcf;
+      margin-bottom: 10px;
+    }
+    .stats {
+      margin-bottom: 20px;
+      font-size: 18px;
+      color: #6a4fcf;
+      font-weight: bold;
+    }
+    .game-board {
+      display: grid;
+      grid-template-columns: repeat(4, 80px);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .card {
+      width: 80px;
+      height: 80px;
+      background: #d9caff;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .card.flipped {
+      background: #fff;
+    }
+    .message {
+      margin-top: 10px;
+      font-size: 20px;
+      color: #6a4fcf;
+      font-weight: bold;
+      text-align: center;
+    }
+    .ranking {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #333;
+      background: #f0eaff;
+      padding: 10px;
+      border-radius: 8px;
+      width: 250px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      background: #6a4fcf;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #5439a6;
+    }
+  </style>
+</head>
+<body>
+  <h1>Jueguito Memotest</h1>
+  <div class="stats">
+    Puntaje: <span id="puntaje">0</span> | Tiempo: <span id="tiempo">0</span>s
+  </div>
+  <div id="memotest" class="game-board"></div>
+  <div id="mensaje" class="message"></div>
+  <button onclick="reiniciarJuego()">🔄 Reiniciar</button>
+  <div class="ranking">
+    <h3>🏆 Ranking local</h3>
+    <ol id="ranking-list"></ol>
+  </div>
+
+  <script>
+    const icons = ["💧","🚚","🛢️","🌞","🏞️","⚙️"];
+    let cards, flipped, matched, puntaje, tiempo, timerInterval, juegoIniciado;
+
+    function iniciarJuego() {
+      cards = [...icons, ...icons].sort(() => Math.random() - 0.5);
+      flipped = [];
+      matched = [];
+      puntaje = 0;
+      tiempo = 0;
+      juegoIniciado = false;
+      clearInterval(timerInterval);
+      document.getElementById("puntaje").textContent = puntaje;
+      document.getElementById("tiempo").textContent = tiempo;
+      document.getElementById("mensaje").innerHTML = "";
+      const board = document.getElementById("memotest");
+      board.innerHTML = "";
+
+      cards.forEach(icon => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = "❓";
+        card.dataset.icon = icon;
+
+        card.addEventListener("click", () => {
+          iniciarTimer();
+          if (flipped.length < 2 && !card.classList.contains("flipped") && !matched.includes(card)) {
+            card.classList.add("flipped");
+            card.innerHTML = icon;
+            flipped.push(card);
+
+            if (flipped.length === 2) {
+              if (flipped[0].dataset.icon === flipped[1].dataset.icon) {
+                matched.push(...flipped);
+                puntaje += 10;
+                document.getElementById("puntaje").textContent = puntaje;
+                flipped = [];
+                if (matched.length === cards.length) {
+                  clearInterval(timerInterval);
+                  mostrarMensajeFinal();
+                  guardarRanking(puntaje, tiempo);
+                  mostrarRanking();
+                }
+              } else {
+                puntaje -= 2;
+                document.getElementById("puntaje").textContent = puntaje;
+                setTimeout(() => {
+                  flipped.forEach(c => {
+                    c.classList.remove("flipped");
+                    c.innerHTML = "❓";
+                  });
+                  flipped = [];
+                }, 800);
+              }
+            }
+          }
+        });
+
+        board.appendChild(card);
+      });
+    }
+
+    function iniciarTimer() {
+      if (!juegoIniciado) {
+        juegoIniciado = true;
+        timerInterval = setInterval(() => {
+          tiempo++;
+          document.getElementById("tiempo").textContent = tiempo;
+        }, 1000);
+      }
+    }
+
+    function reiniciarJuego() {
+      iniciarJuego();
+    }
+
+    function mostrarMensajeFinal() {
+      let medalla = "";
+      if (puntaje >= 60 && tiempo <= 30) {
+        medalla = "🥇 ¡Gota Dorada! Rápido y preciso.";
+      } else if (puntaje >= 60 && tiempo > 30) {
+        medalla = "🚚 ¡Camión de la Memoria! Todo correcto.";
+      } else if (puntaje < 60 && tiempo <= 60) {
+        medalla = "🛢️ ¡Bidón Zen! Lo lograste con calma.";
+      } else {
+        medalla = "🌞 ¡Sol Persistente! La práctica hace al maestro.";
+      }
+      document.getElementById("mensaje").innerHTML = 
+        `¡Memoria fresca como el agua 💧!<br>Puntaje final: ${puntaje} | Tiempo: ${tiempo}s<br>${medalla}`;
+    }
+
+    function guardarRanking(puntaje, tiempo) {
+      let ranking = JSON.parse(localStorage.getItem("rankingMemotest")) || [];
+      ranking.push({puntaje, tiempo, fecha: new Date().toLocaleString()});
+      ranking.sort((a, b) => b.puntaje - a.puntaje || a.tiempo - b.tiempo);
+      ranking = ranking.slice(0, 5); // top 5
+      localStorage.setItem("rankingMemotest", JSON.stringify(ranking));
+    }
+
+    function mostrarRanking() {
+      let ranking = JSON.parse(localStorage.getItem("rankingMemotest")) || [];
+      const list = document.getElementById("ranking-list");
+      list.innerHTML = "";
+      ranking.forEach(r => {
+        const li = document.createElement("li");
+        li.textContent = `${r.puntaje} pts | ${r.tiempo}s (${r.fecha})`;
+        list.appendChild(li);
+      });
+    }
+
+    // Inicializar juego al cargar
+    iniciarJuego();
+    mostrarRanking();
+  </script>
+</body>
+</html>

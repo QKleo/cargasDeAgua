@@ -203,3 +203,58 @@ button.confirmar:hover {
   0%, 100% { opacity: 1; }
   50% { opacity: 0.4; }
 }
+/* menu juegos */
+/* Barra superior */
+    .navbar {
+      background: #b5a3f7;
+      color: #fff;
+      padding: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .hamburger {
+      font-size: 28px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      color: #fff;
+      width: 60%;
+    }
+    /* Menú lateral */
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100vh;
+      background: #d9caff;
+      padding: 20px;
+      transition: left 0.3s;
+    }
+    .sidebar.active {
+      left: 0;
+    }
+    .sidebar h2 {
+      margin-top: 0;
+      color: #6a4fcf;
+    }
+    .sidebar button {
+      display: block;
+      margin: 10px 0;
+      padding: 12px;
+      width: 100%;
+      border: none;
+      border-radius: 8px;
+      background: #6a4fcf;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .sidebar button:hover {
+      background: #5439a6;
+    }
+    /* Contenido principal */
+    .content {
+      padding: 20px;
+    }

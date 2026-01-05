@@ -32,7 +32,11 @@ const urlsToCache = [
   "/login.js",
   "/manifest.json",
   "/icons/icon-192.png",
-  "/icons/icon-512.png"
+  "/icons/icon-512.png",
+  "/memotest.html",
+  "/simon.html",
+  "/minimal pastel water.png"
+  
 ];
 
 // Instalar y cachear recursos
