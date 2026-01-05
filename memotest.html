@@ -182,7 +182,7 @@
       let ranking = JSON.parse(localStorage.getItem("rankingMemotest")) || [];
       ranking.push({puntaje, tiempo, fecha: new Date().toLocaleString()});
       ranking.sort((a, b) => b.puntaje - a.puntaje || a.tiempo - b.tiempo);
-      ranking = ranking.slice(0, 5); // top 5
+      ranking = ranking.slice(0, 3); // top 3
       localStorage.setItem("rankingMemotest", JSON.stringify(ranking));
     }
 

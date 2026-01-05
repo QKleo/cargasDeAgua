@@ -163,7 +163,7 @@
       let ranking = JSON.parse(localStorage.getItem("rankingSimon")) || [];
       ranking.push({nivel, medalla, fecha: new Date().toLocaleString()});
       ranking.sort((a, b) => b.nivel - a.nivel);
-      ranking = ranking.slice(0, 5);
+      ranking = ranking.slice(0, 3); // top 3
       localStorage.setItem("rankingSimon", JSON.stringify(ranking));
     }
 
