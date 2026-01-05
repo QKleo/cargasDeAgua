@@ -219,7 +219,7 @@ button.confirmar:hover {
       background: none;
       border: none;
       color: #fff;
-      width: 60%;
+      width: min-content;
     }
     /* Menú lateral */
     .sidebar {
