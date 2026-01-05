@@ -71,6 +71,7 @@
       try {
         loaderEnvio.style.display = "block";
         btnEnviar.disabled = true;
+        btnEnviar.textContent = "Enviando...";
         const res = await fetch(endPoint, {
           method: "POST",
           mode: "no-cors",
@@ -81,6 +82,7 @@
        // console.log("Respuesta del servidor:", data);
         loaderEnvio.style.display = "none";
         btnEnviar.disabled = false;
+        btnEnviar.textContent = "Confirmar";
         //console.log("Carga enviada:", data); //ver en consola
         alert("carga enviada.");
       } catch (err) {
