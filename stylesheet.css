@@ -227,7 +227,7 @@ button.confirmar:hover {
       top: 0;
       left: -280px;
       width: 250px;
-      height: 100vh;
+      height: min-content;
       background: #d9caff;
       padding: 20px;
       transition: left 0.3s;
