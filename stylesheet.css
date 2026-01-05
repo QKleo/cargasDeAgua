@@ -225,7 +225,7 @@ button.confirmar:hover {
     .sidebar {
       position: fixed;
       top: 0;
-      left: -250px;
+      left: -280px;
       width: 250px;
       height: 100vh;
       background: #d9caff;
