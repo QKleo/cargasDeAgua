@@ -115,10 +115,11 @@
         chofer: localStorage.getItem('user') || 'demo',
         fecha: new Date().toLocaleString() // opcional: guardar fecha/hora
       };
+      document.getElementById("btnEnviar").disabled = true;
 
       try {
         loaderEnvio.style.display = "block";
-        btnEnviar.disabled = true;
+        //btnEnviar.disabled = true;
         btnEnviar.style.display = "none";
         const res = await fetch(endPoint, {
           method: "POST",
@@ -129,13 +130,15 @@
         //const data = await res.json();
        // console.log("Respuesta del servidor:", data);
         loaderEnvio.style.display = "none";
-        btnEnviar.disabled = false;
+       // btnEnviar.disabled = false;
         btnEnviar.style.display = "block";
         //console.log("Carga enviada:", data); //ver en consola
         alert("carga enviada.");
+        document.getElementById("btnEnviar").disabled = false;
       } catch (err) {
         console.error("Error enviando.......:", err);
         alert("No se pudo enviar. Queda activo hasta nuevo intento.");
+        document.getElementById("btnEnviar").disabled = false;
         return; // no limpiar estado si falla envío
       }};
 
