@@ -121,6 +121,9 @@
 <div id="bienvenida" >
     
     <button onclick="logout()">Cerrar sesión</button>
+    <p>Cargas de hoy: <span id="counter">0</span></p>
+
+
 </div>
 <div class="loader" id="loaderEnvio"></div>
 </div>
@@ -173,6 +176,11 @@
         });
         
         btnEnviar.style.display = "block";
+        //actualizar contador
+        count++;
+        localStorage.setItem("count", count);
+        localStorage.setItem("today", getToday());
+        document.getElementById("counter").textContent = count;
         
         
 
@@ -221,6 +229,29 @@
       document.getElementById("form").style.display = "block";
       document.getElementById("ventanaJuegos").style.display = "none";
     }
+
+    //logica del contador de envíos
+  function getToday() {
+  const d = new Date();
+  return d.toISOString().split('T')[0]; // formato YYYY-MM-DD
+}
+
+// Inicializar
+let today = localStorage.getItem("today") || getToday();
+let count = parseInt(localStorage.getItem("count")) || 0;
+
+// Reset si cambió el día
+if (today !== getToday()) {
+  today = getToday();
+  count = 0;
+  localStorage.setItem("today", today);
+  localStorage.setItem("count", count);
+}
+
+document.getElementById("counter").textContent = count;
+
+
+
 
 
 
