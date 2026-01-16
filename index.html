@@ -9,6 +9,11 @@
   <link rel="icon" type="image/png" href="minimal pastel water.png">
 </head>
 <body>
+ 
+
+
+
+
   <div class="login-container" id="login">
     <h2>Login Chofer</h2>
     <input id="user" placeholder="Usuario">
@@ -94,6 +99,25 @@
  <button class="confirmar" id="btnEnviar" onclick="enviar()">
   <span class="icon">🚚</span> Confirmar
 </button>
+
+<!-- Pop-up oculto -->
+<div id="popupOverlay">
+  <div id="popupBox">
+    <h2 id="msjPopup">espera un momento........</h2>
+    <p>Tu envío fue procesado correctamente.</p>
+    <button id="closePopup">Cerrar</button>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
 <div id="bienvenida" >
     
     <button onclick="logout()">Cerrar sesión</button>
@@ -107,6 +131,13 @@
       const endPoint="https://script.google.com/macros/s/AKfycbxmrLYRZOvHp5fEmagYlMAeuP0nXIGq3KW86wXWydg_--pA7VLBMSPgnknPGxfoetWCmQ/exec";
       const loaderEnvio = document.getElementById("loaderEnvio");
       const btnEnviar = document.getElementById("btnEnviar");
+
+      //const sendBtn = document.getElementById("sendBtn");
+      const popupOverlay = document.getElementById("popupOverlay");
+      const closePopup = document.getElementById("closePopup");
+
+
+
       async function enviar() {
       const data = {
         dominio: document.getElementById('dominio').value,
@@ -116,24 +147,37 @@
         fecha: new Date().toLocaleString() // opcional: guardar fecha/hora
       };
       document.getElementById("btnEnviar").disabled = true;
-
+      document.getElementById("msjPopup").innerText = "⏳ Enviando registro...";
+      document.getElementById("closePopup").style.display = "none";
       try {
         loaderEnvio.style.display = "block";
         //btnEnviar.disabled = true;
         btnEnviar.style.display = "none";
+        
+        popupOverlay.style.display = "block";// mostrar pop-up
+        
         const res = await fetch(endPoint, {
           method: "POST",
           mode: "no-cors",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data)
         });
-        //const data = await res.json();
-       // console.log("Respuesta del servidor:", data);
+        
         loaderEnvio.style.display = "none";
-       // btnEnviar.disabled = false;
+       
+        document.getElementById("msjPopup").innerText = "✅ Registro enviado";
+        document.getElementById("closePopup").style.display = "block";
+        
+        closePopup.addEventListener("click", () => {
+        popupOverlay.style.display = "none"; // cerrar pop-up
+        });
+        
         btnEnviar.style.display = "block";
-        //console.log("Carga enviada:", data); //ver en consola
-        alert("carga enviada.");
+        
+        
+
+
+
         document.getElementById("btnEnviar").disabled = false;
       } catch (err) {
         console.error("Error enviando.......:", err);

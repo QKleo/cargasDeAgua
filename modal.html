@@ -1,0 +1,60 @@
+<!-- Botón de envío -->
+<button id="sendBtn">Enviar</button>
+
+<!-- Pop-up oculto -->
+<div id="popupOverlay">
+  <div id="popupBox">
+    <h2>✅ Registro enviado</h2>
+    <p>Tu envío fue procesado correctamente.</p>
+    <button id="closePopup">Cerrar</button>
+  </div>
+</div>
+
+<style>
+/* Fondo semitransparente */
+#popupOverlay {
+  display: none; /* oculto por defecto */
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 999;
+}
+
+/* Caja central */
+#popupBox {
+  background: #fff;
+  color: #333;
+  width: 300px;
+  margin: 15% auto;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+}
+#popupBox h2 { margin-top: 0; }
+#closePopup {
+  margin-top: 15px;
+  padding: 8px 16px;
+  background: #ff7eb9; /* pastel coqueto */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+</style>
+
+<script>
+const sendBtn = document.getElementById("sendBtn");
+const popupOverlay = document.getElementById("popupOverlay");
+const closePopup = document.getElementById("closePopup");
+
+sendBtn.addEventListener("click", () => {
+  // Aquí va tu lógica de envío
+  console.log("Registro enviado");
+  popupOverlay.style.display = "block"; // mostrar pop-up
+});
+
+closePopup.addEventListener("click", () => {
+  popupOverlay.style.display = "none"; // cerrar pop-up
+});
+</script>
