@@ -49,6 +49,9 @@
     <h2>🎮 Juegos</h2>
     <button onclick="openGame('memotest.html')">🎴 Memotest</button>
     <button onclick="openGame('simon.html')">🎶 Simón Dice</button>
+    <hr style="margin: 15px 0; border: none; border-top: 1px solid #ddd;">
+    <h2>📋 Historial</h2>
+    <button onclick="toggleHistorial()">📊 Ver Historial</button>
   </div>
 
   
@@ -95,6 +98,15 @@
     <option>20</option>
     <option>10</option>
   </select>
+
+  <!-- Sección del Historial -->
+  <div id="historialContainer" style="display: none; margin-top: 20px; max-height: 300px; overflow-y: auto; background: #f9f9ff; padding: 15px; border-radius: 10px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+      <h3 style="margin: 0; color: #4a3f8f;">📊 Últimas Cargas (5 días)</h3>
+      <button onclick="toggleHistorial()" style="width: auto; padding: 5px 10px; font-size: 0.9em;">✕</button>
+    </div>
+    <div id="historialList" style="max-height: 250px; overflow-y: auto;"></div>
+  </div>
 
  <button class="confirmar" id="btnEnviar" onclick="enviar()">
   <span class="icon">🚚</span> Confirmar
@@ -182,9 +194,10 @@
         localStorage.setItem("today", getToday());
         document.getElementById("counter").textContent = count;
         
+        // Guardar en historial
+        guardarCarga(data);
         
-
-
+        
 
         document.getElementById("btnEnviar").disabled = false;
       } catch (err) {
@@ -249,6 +262,68 @@ if (today !== getToday()) {
 }
 
 document.getElementById("counter").textContent = count;
+
+// Funciones para el historial
+function guardarCarga(data) {
+  let historial = JSON.parse(localStorage.getItem('historialCargas')) || [];
+  const carga = {
+    id: Date.now(),
+    dominio: data.dominio,
+    cargadero: data.cargadero,
+    m3: data.m3,
+    chofer: data.chofer,
+    fecha: new Date().toLocaleString('es-AR'),
+    timestamp: Date.now()
+  };
+  historial.push(carga);
+  localStorage.setItem('historialCargas', JSON.stringify(historial));
+}
+
+function obtenerHistorial5Dias() {
+  const historial = JSON.parse(localStorage.getItem('historialCargas')) || [];
+  const ahora = Date.now();
+  const cincodias = 5 * 24 * 60 * 60 * 1000; // 5 días en milisegundos
+  
+  return historial.filter(carga => (ahora - carga.timestamp) <= cincodias).reverse();
+}
+
+function mostrarHistorial() {
+  const historial = obtenerHistorial5Dias();
+  const historialList = document.getElementById('historialList');
+  
+  if (historial.length === 0) {
+    historialList.innerHTML = '<p style="text-align: center; color: #999;">No hay cargas registradas</p>';
+    return;
+  }
+  
+  let html = '';
+  historial.forEach((carga, index) => {
+    html += `
+      <div style="background: white; padding: 10px; margin: 8px 0; border-radius: 8px; border-left: 4px solid #7a5cff;">
+        <div style="display: flex; justify-content: space-between; font-weight: 600; color: #4a3f8f;">
+          <span>#${index + 1}</span>
+          <span style="font-size: 0.9em; color: #999;">${carga.fecha}</span>
+        </div>
+        <p style="margin: 5px 0; font-size: 0.95em;">
+          <strong>Dominio:</strong> ${carga.dominio} | 
+          <strong>Cargadero:</strong> ${carga.cargadero} | 
+          <strong>m³:</strong> ${carga.m3}
+        </p>
+      </div>
+    `;
+  });
+  historialList.innerHTML = html;
+}
+
+function toggleHistorial() {
+  const container = document.getElementById('historialContainer');
+  if (container.style.display === 'none') {
+    mostrarHistorial();
+    container.style.display = 'block';
+  } else {
+    container.style.display = 'none';
+  }
+}
 
 
 
